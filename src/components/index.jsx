@@ -2,3 +2,4 @@
 export * from "./molecules/Header";
 export * from "./molecules/ImageCard";
 export * from "./templates/Layout";
+export * from "./organisms/Editor";
