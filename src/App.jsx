@@ -1,9 +1,9 @@
-import Topics from "./pages/Topics";
+import NewDevotional from "./pages/Devotionals/NewDevotional";
 
 const App = () => {
   return (
     <>
-      <Topics />
+      <NewDevotional />
     </>
   );
 };
