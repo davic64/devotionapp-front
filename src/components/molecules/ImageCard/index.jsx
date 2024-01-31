@@ -20,12 +20,15 @@ export const ImageCard = ({ img, main, title, size = 450, clickable }) => {
         <Flex
           align="end"
           h="100%"
-          w={main ? { base: "100%", md: "60%" } : { base: "100%", md: "80%" }}
+          w={
+            main
+              ? { base: "100%", md: "60%" }
+              : { base: "100%", md: size >= 400 ? "60%" : "80%" }
+          }
         >
           <Title
             c="white"
             textWrap="balance"
-            size={{ base: "3rem", md: "3rem", lg: "3rem" }}
             className={size >= 400 ? classes.large : classes.small}
           >
             {title}

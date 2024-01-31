@@ -7,6 +7,7 @@ import {
   Group,
   Text,
   rem,
+  Box,
 } from "@mantine/core";
 import {
   IconSettings2,
@@ -25,14 +26,14 @@ export const Header = () => {
               <Avatar color="violet" radius="xl">
                 UN
               </Avatar>
-              <div style={{ flex: 1 }}>
+              <Box style={{ flex: 1 }} visibleFrom="sm">
                 <Text size="sm" fw={500}>
                   User Name
                 </Text>
                 <Text c="dimmed" size="xs">
                   Tierra Nueva
                 </Text>
-              </div>
+              </Box>
             </Group>
           </UnstyledButton>
         </Menu.Target>
