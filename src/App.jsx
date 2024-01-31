@@ -1,9 +1,9 @@
-import LoginSignUp from "./pages/LoginSignUp";
+import Home from "./pages/Home";
 
 const App = () => {
   return (
     <>
-      <LoginSignUp />
+      <Home />
     </>
   );
 };
