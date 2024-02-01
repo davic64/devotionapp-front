@@ -14,8 +14,12 @@ import {
   IconLogout,
   IconMessageDots,
 } from "@tabler/icons-react";
+import { useAuth } from "../../../hooks/useAuth";
+import { getInitials } from "../../../utils";
 
 export const Header = () => {
+  const { user, logout } = useAuth();
+
   return (
     <Flex align="center" justify="space-between" py={30}>
       <Image src="/da_black.svg" w={150} />
@@ -24,14 +28,14 @@ export const Header = () => {
           <UnstyledButton>
             <Group>
               <Avatar color="violet" radius="xl">
-                UN
+                {getInitials(user?.name)}
               </Avatar>
               <Box style={{ flex: 1 }} visibleFrom="sm">
                 <Text size="sm" fw={500}>
-                  User Name
+                  {user?.name}
                 </Text>
                 <Text c="dimmed" size="xs">
-                  Tierra Nueva
+                  {user?.location}
                 </Text>
               </Box>
             </Group>
@@ -56,6 +60,7 @@ export const Header = () => {
             leftSection={
               <IconLogout style={{ width: rem(14), height: rem(14) }} />
             }
+            onClick={logout}
           >
             Cerrar Sesión
           </Menu.Item>
