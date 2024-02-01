@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import * as authService from "../api/authService";
 import { useAuthStore } from "../store/authStore";
+import { notifications } from "@mantine/notifications";
 
 export const useAuth = () => {
   const queryClient = useQueryClient();
@@ -15,6 +16,13 @@ export const useAuth = () => {
       setToken(data.body.token);
       navigate("/home");
       queryClient.invalidateQueries({ queryKey: ["user", "token"] });
+    },
+    onError: (error) => {
+      notifications.show({
+        color: "red",
+        title: error.name,
+        message: error.message,
+      });
     },
   });
 

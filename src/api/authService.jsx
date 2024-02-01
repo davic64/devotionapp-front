@@ -6,6 +6,10 @@ const baseURL = {
 };
 
 export const login = async (credentials) => {
-  const response = await instance.post(`${baseURL.auth}login`, credentials);
-  return response.data;
+  try {
+    const response = await instance.post(`${baseURL.auth}login`, credentials);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.body);
+  }
 };

@@ -12,7 +12,7 @@ import {
 } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { isEmail, isNotEmpty, useForm } from "@mantine/form";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth, useUser } from "../../hooks";
 
 const LoginSignUp = () => {
   const form = useForm({
@@ -33,13 +33,25 @@ const LoginSignUp = () => {
   const [type, toggle] = useToggle(["login", "signup"]);
 
   const { login } = useAuth();
+  const { createUser } = useUser();
 
   const handleLogin = async () => {
     const credentials = {
       email: form.values.email,
       password: form.values.pass,
     };
-    await login(credentials);
+    login(credentials);
+  };
+
+  const handleSignUp = async () => {
+    const dataUser = {
+      name: form.values.name,
+      email: form.values.email,
+      password: form.values.pass,
+      location: form.values.local,
+    };
+    createUser(dataUser);
+    toggle();
   };
 
   return (
@@ -48,7 +60,7 @@ const LoginSignUp = () => {
         <Center mb={25}>
           <Image src="/da_black.svg" w={200} />
         </Center>
-        <form onSubmit={form.onSubmit(console.log)}>
+        <form onSubmit={form.onSubmit()}>
           <Stack>
             {type === "signup" && (
               <>
@@ -80,19 +92,6 @@ const LoginSignUp = () => {
                 size="lg"
                 {...form.getInputProps("pass")}
               />
-              {/* {type === "login" && ( TODO: Waiting for backend service
-                <Text
-                  mt={5}
-                  size="sm"
-                  style={{
-                    userSelect: "none",
-                    cursor: "pointer",
-                    float: "right",
-                  }}
-                >
-                  Olvidé mi contraseña
-                </Text>
-              )} */}
             </Box>
           </Stack>
           <Button
@@ -102,9 +101,7 @@ const LoginSignUp = () => {
             fullWidth
             mt={20}
             type="submit"
-            onClick={() =>
-              type === "login" ? handleLogin() : console.log("signup")
-            }
+            onClick={() => (type === "login" ? handleLogin() : handleSignUp())}
           >
             {type === "login" ? "Iniciar Sesión" : "Registrarse"}
           </Button>
