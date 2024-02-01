@@ -12,6 +12,7 @@ import {
 } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { isEmail, isNotEmpty, useForm } from "@mantine/form";
+import { useAuth } from "../../hooks/useAuth";
 
 const LoginSignUp = () => {
   const form = useForm({
@@ -25,11 +26,21 @@ const LoginSignUp = () => {
       name: isNotEmpty("Escribe tu nombre"),
       local: isNotEmpty("Selecciona tu localidad"),
       email: isEmail("Correo electrónico inválido"),
-      pass: (val) => (val.length <= 8 ? "Escribe al menos 8 caracteres" : null),
+      pass: isNotEmpty("Escribe una contraseña"),
     },
   });
 
   const [type, toggle] = useToggle(["login", "signup"]);
+
+  const { login } = useAuth();
+
+  const handleLogin = async () => {
+    const credentials = {
+      email: form.values.email,
+      password: form.values.pass,
+    };
+    await login(credentials);
+  };
 
   return (
     <Flex align="center" justify="center" h="100vh">
@@ -91,6 +102,9 @@ const LoginSignUp = () => {
             fullWidth
             mt={20}
             type="submit"
+            onClick={() =>
+              type === "login" ? handleLogin() : console.log("signup")
+            }
           >
             {type === "login" ? "Iniciar Sesión" : "Registrarse"}
           </Button>
