@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Button, Flex, Group, Input, Text, Tooltip } from "@mantine/core";
 import { IconInfoCircle } from "@tabler/icons-react";
-import { Layout, Editor } from "../../components";
+import { Editor } from "../../components";
 
 const NewDevotional = () => {
   const [currentData, setCurrentData] = useState(null);
@@ -16,7 +16,7 @@ const NewDevotional = () => {
   };
 
   return (
-    <Layout>
+    <>
       <Flex justify="space-between" align="center">
         <Group>
           <Tooltip
@@ -52,7 +52,7 @@ const NewDevotional = () => {
         />
       </Box>
       <Editor saveData={setCurrentData} />
-    </Layout>
+    </>
   );
 };
 
