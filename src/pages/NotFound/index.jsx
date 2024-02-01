@@ -7,11 +7,11 @@ const NotFound = () => {
 
   return (
     <Flex mih="100vh" align="center" justify="center" direction="column">
-      <Image src={Image404} w={{ base: "40rem" }} mt="-5rem" />
+      <Image src={Image404} w={{ base: "25rem", md: "40rem" }} mt="-5rem" />
       <Button
         variant="outline"
         color="violet"
-        mt="-4rem"
+        mt={{ base: "-2rem", md: "-4rem" }}
         size="xl"
         onClick={() => navigate("/")}
       >
