@@ -14,3 +14,16 @@ export const getTopics = async (token) => {
     throw new Error(error.response.data.body);
   }
 };
+
+export const getTopic = async (token, slug) => {
+  try {
+    const topic = await instance.get(`${baseURL}${slug}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return topic;
+  } catch (error) {
+    throw new Error(error.response.data.body);
+  }
+};

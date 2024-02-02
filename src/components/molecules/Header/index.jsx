@@ -16,13 +16,20 @@ import {
 } from "@tabler/icons-react";
 import { useAuth } from "../../../hooks/useAuth";
 import { getInitials } from "../../../utils";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <Flex align="center" justify="space-between" py={30}>
-      <Image src="/da_black.svg" w={150} />
+      <Image
+        src="/da_black.svg"
+        w={150}
+        onClick={() => navigate("/home")}
+        style={{ cursor: "pointer" }}
+      />
       <Menu position="bottom-end">
         <Menu.Target>
           <UnstyledButton>

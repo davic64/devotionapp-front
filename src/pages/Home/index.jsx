@@ -1,4 +1,4 @@
-import { Grid } from "@mantine/core";
+import { Box, Button, Grid } from "@mantine/core";
 import { ImageCard } from "../../components";
 import { useTopic } from "../../hooks/useTopic";
 
