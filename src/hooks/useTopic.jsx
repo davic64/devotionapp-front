@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import * as topicService from "../api/topicService";
-import { useAuthStore } from "../store/authStore";
+import { useAuthStore } from "../store";
 
 export const useTopic = (slug) => {
   const { token } = useAuthStore();
