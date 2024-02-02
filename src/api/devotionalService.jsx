@@ -25,7 +25,20 @@ export const get = async (token, location, topicId) => {
         },
       }
     );
-    return devotionals?.data.body;
+    return devotionals?.data?.body;
+  } catch (error) {
+    throw new Error(error.response.data.body);
+  }
+};
+
+export const getOne = async (token, devoId) => {
+  try {
+    const devotional = await instance.get(`${baseURL}detail/${devoId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return devotional?.data?.body;
   } catch (error) {
     throw new Error(error.response.data.body);
   }

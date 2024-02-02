@@ -21,10 +21,10 @@ const Topics = () => {
   const navigate = useNavigate();
   const { user } = useAuthStore();
   const { topic, topicLoading } = useTopic(slug);
-  const { devotionals, devotionalsLoading } = useDevotional(
-    user?.location,
-    topic?.id
-  );
+  const { devotionals, devotionalsLoading } = useDevotional({
+    location: user?.location,
+    topicId: topic?.id,
+  });
 
   return !topicLoading ? (
     <>
@@ -62,7 +62,9 @@ const Topics = () => {
                 <Grid.Col span={{ base: 12, md: 6 }} key={devotional.id}>
                   <UnstyledButton
                     w="100%"
-                    onClick={navigate(`/${topic.slug}/devo/${devotional.id}`)}
+                    onClick={() =>
+                      navigate(`/${topic.slug}/devotional/${devotional.id}`)
+                    }
                   >
                     <Paper withBorder p={20} radius="md">
                       <Flex align="center" justify="space-between" mah={200}>
@@ -85,7 +87,6 @@ const Topics = () => {
           )
         ) : (
           <Flex align="center" justify="center">
-            {" "}
             <Loader color="violet" size="lg" type="dots" />
           </Flex>
         )}
@@ -93,7 +94,6 @@ const Topics = () => {
     </>
   ) : (
     <Flex align="center" justify="center" h="80vh">
-      {" "}
       <Loader color="violet" size="lg" type="dots" />
     </Flex>
   );

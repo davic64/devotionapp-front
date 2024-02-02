@@ -32,7 +32,7 @@ export const routes = [
     layout: Layout,
   },
   {
-    path: "/:slug/devo/:devoId",
+    path: "/:slug/devotional/:devoId",
     component: Devotional,
     private: true,
     layout: Layout,

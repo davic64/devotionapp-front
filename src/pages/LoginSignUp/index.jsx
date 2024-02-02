@@ -74,7 +74,7 @@ const LoginSignUp = () => {
                   label="Localidad"
                   size="lg"
                   placeholder="Tu Localidad"
-                  data={["Tierra Nueva", "Wamerú"]}
+                  data={["Tierra Nueva"]}
                   {...form.getInputProps("local")}
                 />
               </>
