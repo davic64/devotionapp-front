@@ -1,7 +1,17 @@
 import { Badge, Box, Image, Flex, Title } from "@mantine/core";
 import classes from "./ImageCard.module.css";
+import { useNavigate } from "react-router-dom";
 
-export const ImageCard = ({ img, main, title, size = 450, clickable }) => {
+export const ImageCard = ({
+  img,
+  main,
+  title,
+  size = 450,
+  clickable,
+  href,
+}) => {
+  const navigate = useNavigate();
+
   return (
     <Box
       pos="relative"
@@ -10,6 +20,7 @@ export const ImageCard = ({ img, main, title, size = 450, clickable }) => {
         overflow: "hidden",
         borderRadius: "1rem",
       }}
+      onClick={() => (clickable ? navigate(href) : null)}
     >
       {main && (
         <Badge pos="absolute" color="violet" top={40} left={40}>

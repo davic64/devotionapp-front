@@ -20,7 +20,7 @@ export const routes = [
     layout: Layout,
   },
   {
-    path: "/topic/:topicId",
+    path: "/topic/:slug",
     component: Topic,
     private: true,
     layout: Layout,
