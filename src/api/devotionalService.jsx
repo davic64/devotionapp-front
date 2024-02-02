@@ -14,3 +14,19 @@ export const create = async (devoData, token) => {
     throw new Error(error.response.data.body);
   }
 };
+
+export const get = async (token, location, topicId) => {
+  try {
+    const devotionals = await instance.get(
+      `${baseURL}list?location=${location}&topicId=${topicId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return devotionals?.data.body;
+  } catch (error) {
+    throw new Error(error.response.data.body);
+  }
+};

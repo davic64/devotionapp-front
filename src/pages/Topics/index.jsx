@@ -8,16 +8,25 @@ import {
   Flex,
   Box,
   Button,
+  Loader,
+  Center,
 } from "@mantine/core";
 import { useParams, useNavigate } from "react-router-dom";
-import { useTopic } from "../../hooks/useTopic";
+import { useTopic, useDevotional } from "../../hooks";
+import { useAuthStore } from "../../store";
+import { getInitials } from "../../utils";
 
 const Topics = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuthStore();
   const { topic, topicLoading } = useTopic(slug);
+  const { devotionals, devotionalsLoading } = useDevotional(
+    user?.location,
+    topic?.id
+  );
 
-  return ~topicLoading ? (
+  return !topicLoading ? (
     <>
       <Box pos="relative">
         <Button
@@ -46,36 +55,47 @@ const Topics = () => {
         >
           Escribir Devocional
         </Button>
-        <Grid>
-          <Grid.Col span={{ base: 12, md: 6 }}>
-            <UnstyledButton w="100%">
-              <Paper withBorder p={20} radius="md">
-                <Flex align="center" justify="space-between" mah={200}>
-                  <Text fw={500}>Título del devocional</Text>
-                  <Avatar color="violet" radius="xl">
-                    UN
-                  </Avatar>
-                </Flex>
-              </Paper>
-            </UnstyledButton>
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, md: 6 }}>
-            <UnstyledButton w="100%">
-              <Paper withBorder p={20} radius="md">
-                <Flex align="center" justify="space-between" mah={200}>
-                  <Text fw={500}>Título del devocional</Text>
-                  <Avatar color="violet" radius="xl">
-                    UN
-                  </Avatar>
-                </Flex>
-              </Paper>
-            </UnstyledButton>
-          </Grid.Col>
-        </Grid>
+        {!devotionalsLoading ? (
+          devotionals?.length > 0 ? (
+            <Grid>
+              {devotionals?.map((devotional) => (
+                <Grid.Col span={{ base: 12, md: 6 }} key={devotional.id}>
+                  <UnstyledButton
+                    w="100%"
+                    onClick={navigate(`/${topic.slug}/devo/${devotional.id}`)}
+                  >
+                    <Paper withBorder p={20} radius="md">
+                      <Flex align="center" justify="space-between" mah={200}>
+                        <Text fw={500}>{devotional.title}</Text>
+                        <Avatar color="violet" radius="xl">
+                          {getInitials(devotional.user.name)}
+                        </Avatar>
+                      </Flex>
+                    </Paper>
+                  </UnstyledButton>
+                </Grid.Col>
+              ))}
+            </Grid>
+          ) : (
+            <Center>
+              <Text fw="bold" c="gray.4" my="10%" size="xl">
+                No hay devocionales escritos :(
+              </Text>
+            </Center>
+          )
+        ) : (
+          <Flex align="center" justify="center">
+            {" "}
+            <Loader color="violet" size="lg" type="dots" />
+          </Flex>
+        )}
       </Box>
     </>
   ) : (
-    <div>Loading...</div>
+    <Flex align="center" justify="center" h="80vh">
+      {" "}
+      <Loader color="violet" size="lg" type="dots" />
+    </Flex>
   );
 };
 

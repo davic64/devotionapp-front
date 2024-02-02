@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from "@mantine/core";
+import { Loader, Grid, Flex } from "@mantine/core";
 import { ImageCard } from "../../components";
 import { useTopic } from "../../hooks/useTopic";
 
@@ -25,14 +25,16 @@ const Home = () => {
                   size={250}
                   order={3}
                   clickable
-                  href={`/topic/${createSlug(topic.title)}`}
+                  href={`/topic/${topic.slug}`}
                 />
               </Grid.Col>
             ))}
           </Grid>
         </>
       ) : (
-        <div>Loading...</div>
+        <Flex align="center" justify="center" h="80vh">
+          <Loader color="violet" size="lg" type="dots" />
+        </Flex>
       )}
     </>
   );
