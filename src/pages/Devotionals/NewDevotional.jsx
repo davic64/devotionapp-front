@@ -2,14 +2,27 @@ import { useState } from "react";
 import { Box, Button, Flex, Group, Input, Text, Tooltip } from "@mantine/core";
 import { IconInfoCircle } from "@tabler/icons-react";
 import { Editor } from "../../components";
+import { useDevotional } from "../../hooks";
+import { useParams } from "react-router-dom";
 
 const NewDevotional = () => {
   const [currentData, setCurrentData] = useState(null);
+  const [devoTitle, setDevoTitle] = useState("");
+  const { slug } = useParams();
+  const { createDevotional } = useDevotional();
 
   const save = (typeSave) => {
     currentData
       .save()
-      .then((data) => console.log(typeSave, data))
+      .then((data) => {
+        const dataTopic = {
+          title: devoTitle,
+          content: data.blocks,
+          draft: typeSave === "draft",
+          topicSlug: slug,
+        };
+        createDevotional(dataTopic);
+      })
       .catch((error) => {
         console.error("Saving failed: ", error);
       });
@@ -49,6 +62,8 @@ const NewDevotional = () => {
           placeholder="Título del Devocional"
           size="2rem"
           mb={30}
+          value={devoTitle}
+          onChange={(e) => setDevoTitle(e.target.value)}
         />
       </Box>
       <Editor saveData={setCurrentData} />

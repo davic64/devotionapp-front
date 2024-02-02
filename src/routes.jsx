@@ -26,7 +26,7 @@ export const routes = [
     layout: Layout,
   },
   {
-    path: "/devotional",
+    path: "/:slug/devotional",
     component: NewDevotional,
     private: true,
     layout: Layout,
