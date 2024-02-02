@@ -1,40 +1,81 @@
 import { ImageCard } from "../../components";
-import { Grid, Paper, UnstyledButton, Text, Avatar, Flex } from "@mantine/core";
+import {
+  Grid,
+  Paper,
+  UnstyledButton,
+  Text,
+  Avatar,
+  Flex,
+  Box,
+  Button,
+} from "@mantine/core";
+import { useParams, useNavigate } from "react-router-dom";
+import { useTopic } from "../../hooks/useTopic";
 
 const Topics = () => {
-  return (
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const { topic, topicLoading } = useTopic(slug);
+
+  return ~topicLoading ? (
     <>
-      <ImageCard
-        img="https://images.unsplash.com/photo-1642923051153-07d4c98fe203?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        title="Este es el nombre de un tema largo"
-      />
-      <Grid mt={40}>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <UnstyledButton w="100%">
-            <Paper withBorder p={20} radius="md">
-              <Flex align="center" justify="space-between" mah={200}>
-                <Text fw={500}>Título del devocional</Text>
-                <Avatar color="violet" radius="xl">
-                  UN
-                </Avatar>
-              </Flex>
-            </Paper>
-          </UnstyledButton>
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <UnstyledButton w="100%">
-            <Paper withBorder p={20} radius="md">
-              <Flex align="center" justify="space-between" mah={200}>
-                <Text fw={500}>Título del devocional</Text>
-                <Avatar color="violet" radius="xl">
-                  UN
-                </Avatar>
-              </Flex>
-            </Paper>
-          </UnstyledButton>
-        </Grid.Col>
-      </Grid>
+      <Box pos="relative">
+        <Button
+          pos="absolute"
+          color="violet"
+          style={{ zIndex: 1 }}
+          right={40}
+          bottom={40}
+          variant="outline"
+          visibleFrom="sm"
+          onClick={() => navigate("/devotional")}
+        >
+          Escribir Devocional
+        </Button>
+        <ImageCard img={topic?.imgURL} title={topic?.title} />
+      </Box>
+      <Box mt={40}>
+        <Button
+          mb={15}
+          color="violet"
+          size="lg"
+          fullWidth
+          hiddenFrom="sm"
+          variant="light"
+          onClick={() => navigate("/devotional")}
+        >
+          Escribir Devocional
+        </Button>
+        <Grid>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <UnstyledButton w="100%">
+              <Paper withBorder p={20} radius="md">
+                <Flex align="center" justify="space-between" mah={200}>
+                  <Text fw={500}>Título del devocional</Text>
+                  <Avatar color="violet" radius="xl">
+                    UN
+                  </Avatar>
+                </Flex>
+              </Paper>
+            </UnstyledButton>
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <UnstyledButton w="100%">
+              <Paper withBorder p={20} radius="md">
+                <Flex align="center" justify="space-between" mah={200}>
+                  <Text fw={500}>Título del devocional</Text>
+                  <Avatar color="violet" radius="xl">
+                    UN
+                  </Avatar>
+                </Flex>
+              </Paper>
+            </UnstyledButton>
+          </Grid.Col>
+        </Grid>
+      </Box>
     </>
+  ) : (
+    <div>Loading...</div>
   );
 };
 
