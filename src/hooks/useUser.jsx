@@ -7,7 +7,7 @@ export const useUser = () => {
 
   const createUserMutation = useMutation({
     mutationFn: userService.create,
-    onSuccess: (data, toggle) => {
+    onSuccess: (data) => {
       if (!data.body.errors) {
         notifications.show({
           color: "violet",

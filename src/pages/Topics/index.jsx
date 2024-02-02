@@ -28,7 +28,7 @@ const Topics = () => {
           bottom={40}
           variant="outline"
           visibleFrom="sm"
-          onClick={() => navigate("/devotional")}
+          onClick={() => navigate(`/${slug}/devotional`)}
         >
           Escribir Devocional
         </Button>
@@ -42,7 +42,7 @@ const Topics = () => {
           fullWidth
           hiddenFrom="sm"
           variant="light"
-          onClick={() => navigate("/devotional")}
+          onClick={() => navigate(`/${slug}/devotional`)}
         >
           Escribir Devocional
         </Button>
