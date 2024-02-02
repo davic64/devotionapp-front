@@ -17,7 +17,7 @@ const NewDevotional = () => {
       .then((data) => {
         const dataTopic = {
           title: devoTitle,
-          content: data.blocks,
+          content: data,
           draft: typeSave === "draft",
           topicSlug: slug,
         };

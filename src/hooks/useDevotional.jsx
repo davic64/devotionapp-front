@@ -4,7 +4,7 @@ import { notifications } from "@mantine/notifications";
 import { useAuthStore } from "../store/authStore";
 import { useNavigate } from "react-router-dom";
 
-export const useDevotional = (location, topicId) => {
+export const useDevotional = (data) => {
   const queryClient = useQueryClient();
   const { token } = useAuthStore();
   const navigate = useNavigate();
@@ -22,15 +22,22 @@ export const useDevotional = (location, topicId) => {
     },
   });
 
-  const { data: devotionals, isLoading: devotionalsLogin } = useQuery({
-    queryKey: ["devotionals", topicId],
-    queryFn: () => devotionalService.get(token, location, topicId),
-    enabled: !!topicId,
+  const { data: devotionals, isLoading: devotionalsLoading } = useQuery({
+    queryKey: ["devotionals", data?.topicId],
+    queryFn: () => devotionalService.get(token, data.location, data?.topicId),
+    enabled: !!data?.topicId,
+  });
+
+  const { data: devotional, isLoading: devotionalLoading } = useQuery({
+    queryKey: ["devotional"],
+    queryFn: () => devotionalService.getOne(token, data?.devoId),
   });
 
   return {
     devotionals,
-    devotionalsLogin,
+    devotionalsLoading,
+    devotional,
+    devotionalLoading,
     createDevotional: createDevotionalMutation.mutate,
   };
 };
