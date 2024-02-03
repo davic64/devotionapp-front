@@ -26,6 +26,13 @@ const Topics = () => {
     topicId: topic?.id,
   });
 
+  const filteredDevotionals = devotionals
+    ?.filter((devos) => {
+      if (devos.userId !== user.id) return !devos?.draft;
+      return devos;
+    })
+    .reverse();
+
   return !topicLoading ? (
     <>
       <Box pos="relative">
@@ -35,7 +42,6 @@ const Topics = () => {
           style={{ zIndex: 1 }}
           right={40}
           bottom={40}
-          variant="outline"
           visibleFrom="sm"
           onClick={() => navigate(`/${slug}/devotional`)}
         >
@@ -56,15 +62,13 @@ const Topics = () => {
           Escribir Devocional
         </Button>
         {!devotionalsLoading ? (
-          devotionals?.length > 0 ? (
+          filteredDevotionals?.length > 0 ? (
             <Grid>
-              {devotionals?.map((devotional) => (
+              {filteredDevotionals.map((devotional) => (
                 <Grid.Col span={{ base: 12, md: 6 }} key={devotional.id}>
                   <UnstyledButton
                     w="100%"
-                    onClick={() =>
-                      navigate(`/${topic.slug}/devotional/${devotional.id}`)
-                    }
+                    onClick={() => navigate(`/${topic.slug}/${devotional.id}`)}
                   >
                     <Paper withBorder p={20} radius="md">
                       <Flex align="center" justify="space-between" mah={200}>

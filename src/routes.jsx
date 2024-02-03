@@ -33,6 +33,12 @@ export const routes = [
   },
   {
     path: "/:slug/devotional/:devoId",
+    component: NewDevotional,
+    private: true,
+    layout: Layout,
+  },
+  {
+    path: "/:slug/:devoId/",
     component: Devotional,
     private: true,
     layout: Layout,

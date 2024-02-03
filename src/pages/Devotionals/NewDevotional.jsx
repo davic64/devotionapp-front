@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, Flex, Group, Input, Text, Tooltip } from "@mantine/core";
 import { IconInfoCircle } from "@tabler/icons-react";
 import { Editor } from "../../components";
@@ -6,10 +6,10 @@ import { useDevotional } from "../../hooks";
 import { useParams } from "react-router-dom";
 
 const NewDevotional = () => {
-  const [currentData, setCurrentData] = useState(null);
+  const [currentData, setCurrentData] = useState({});
   const [devoTitle, setDevoTitle] = useState("");
-  const { slug } = useParams();
-  const { createDevotional } = useDevotional();
+  const { slug, devoId } = useParams();
+  const { createDevotional, devotional } = useDevotional({ devoId, slug });
 
   const save = (typeSave) => {
     currentData
@@ -20,6 +20,7 @@ const NewDevotional = () => {
           content: data,
           draft: typeSave === "draft",
           topicSlug: slug,
+          ...(devoId ? { devoId } : {}),
         };
         createDevotional(dataTopic);
       })
@@ -27,6 +28,17 @@ const NewDevotional = () => {
         console.error("Saving failed: ", error);
       });
   };
+
+  useEffect(() => {
+    if (devoId && devotional) {
+      setDevoTitle(devotional?.title);
+      setCurrentData(devotional?.content);
+    }
+  }, [devoId, devotional]);
+
+  if (devoId && !devotional) {
+    return null;
+  }
 
   return (
     <>
@@ -66,7 +78,10 @@ const NewDevotional = () => {
           onChange={(e) => setDevoTitle(e.target.value)}
         />
       </Box>
-      <Editor saveData={setCurrentData} />
+      <Editor
+        saveData={setCurrentData}
+        devotional={devoId ? devotional : null}
+      />
     </>
   );
 };

@@ -2,9 +2,12 @@ import instance from "./axiosConfig";
 
 const baseURL = "devotional/";
 
-export const create = async (devoData, token) => {
+export const upsert = async (devoData, token) => {
   try {
-    const devotional = await instance.patch(baseURL, devoData, {
+    const { devoId, ...devo } = devoData;
+    const url = devoId ? `${baseURL}/${devoId}` : baseURL;
+
+    const devotional = await instance.patch(url, devo, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
