@@ -4,7 +4,7 @@ import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import "./styles.css";
 
-export const Editor = ({ saveData }) => {
+export const Editor = ({ saveData, devotional }) => {
   const editorRef = useRef(null);
   const editorInstanceRef = useRef(null);
 
@@ -27,12 +27,25 @@ export const Editor = ({ saveData }) => {
 
       placeholder: "Escribe tu devocional...",
 
-      data: {},
+      data: devotional?.content,
     });
-  }, []);
+
+    return () => {
+      if (editorInstanceRef.current) {
+        try {
+          editorInstanceRef.current.destroy();
+        } catch (error) {
+          console.error("Error al destruir la instancia del EditorJS:", error);
+        } finally {
+          editorInstanceRef.current = null;
+        }
+      }
+    };
+  }, [devotional]);
 
   useEffect(() => {
     saveData(editorInstanceRef.current);
   }, [editorInstanceRef.current]);
+
   return <Box ref={editorRef} w="100%" />;
 };

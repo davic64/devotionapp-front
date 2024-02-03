@@ -10,12 +10,10 @@ import App from "./App.jsx";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <MantineProvider>
-        <Notifications />
-        <App />
-      </MantineProvider>
-    </QueryClientProvider>
-  </React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <MantineProvider>
+      <Notifications />
+      <App />
+    </MantineProvider>
+  </QueryClientProvider>
 );

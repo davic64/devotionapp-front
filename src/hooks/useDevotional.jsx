@@ -10,13 +10,13 @@ export const useDevotional = (data) => {
   const navigate = useNavigate();
 
   const createDevotionalMutation = useMutation({
-    mutationFn: (devoData) => devotionalService.create(devoData, token),
+    mutationFn: (devoData) => devotionalService.upsert(devoData, token),
     onSuccess: () => {
       notifications.show({
         color: "violet",
         title: "¡Genial!",
         message: "Tu devocional ha sido creado correctamente",
-        onClose: navigate(-1),
+        onClose: navigate(`/topic/${data?.slug}`),
       });
       queryClient.invalidateQueries({ queryKey: ["devotional"] });
     },
@@ -29,8 +29,9 @@ export const useDevotional = (data) => {
   });
 
   const { data: devotional, isLoading: devotionalLoading } = useQuery({
-    queryKey: ["devotional"],
+    queryKey: ["devotional", data?.devoId],
     queryFn: () => devotionalService.getOne(token, data?.devoId),
+    enabled: !!data?.devoId,
   });
 
   return {
