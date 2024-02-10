@@ -72,7 +72,14 @@ const Topics = () => {
                   >
                     <Paper withBorder p={20} radius="md">
                       <Flex align="center" justify="space-between" mah={200}>
-                        <Text fw={500}>{devotional.title}</Text>
+                        <Box>
+                          <Text fw={500} tt="capitalize">
+                            {devotional.title.toLowerCase()}
+                          </Text>
+                          <Text size="xs" c="gray.7">
+                            Por: {devotional.user.name}
+                          </Text>
+                        </Box>
                         <Avatar color="violet" radius="xl">
                           {getInitials(devotional.user.name)}
                         </Avatar>

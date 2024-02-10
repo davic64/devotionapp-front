@@ -28,7 +28,9 @@ const Devotional = () => {
       <Group>
         {devotional && devotional.title && (
           <>
-            <Title size="2rem">{devotional.title}</Title>
+            <Title size="2rem" tt="capitalize">
+              {devotional.title.toLowerCase()}
+            </Title>
           </>
         )}
         {devotional && devotional.user && devotional.user && (
@@ -50,7 +52,7 @@ const Devotional = () => {
         </Button>
       )}
       {devotional && devotional.content && (
-        <Box style={{ textAlign: "justify", whiteSpace: "pre" }} mt={20}>
+        <Box style={{ textAlign: "justify", whiteSpace: "pre-line" }} mt={20}>
           {parse(edjsParser.parse(devotional.content).join(""))}
         </Box>
       )}
