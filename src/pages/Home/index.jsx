@@ -17,7 +17,7 @@ const Home = () => {
             href={`/topic/${topics[topics?.length - 1].slug}`}
           />
           <Grid mt={20}>
-            {topics.slice(0, -1).map((topic) => (
+            {topics.slice(0, -1).reverse().map((topic) => (
               <Grid.Col span={{ base: 12, md: 6, lg: 4 }} key={topic.id}>
                 <ImageCard
                   img={topic.imgURL}
